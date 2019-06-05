@@ -115,7 +115,7 @@ app.prepare()
         }
       })
     }).then(({data}) => {
-      const keys = ['danceability', 'energy', 'speechiness', 'acousticness', 'instrumentalness', 'liveness'];
+      const keys = ['danceability', 'energy', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence'];
       const stat_totals = data.audio_features.filter(track => {
         for (let key of keys) {
           if (track[key] === undefined || track[key] === null){
@@ -135,7 +135,8 @@ app.prepare()
         speechiness: 0,
         acousticness: 0,
         instrumentalness: 0,
-        liveness: 0
+        liveness: 0,
+        valence: 0
       });
 
       const stats_avg = {
@@ -144,7 +145,8 @@ app.prepare()
         speechiness: stat_totals['speechiness'] / data.audio_features.length,
         acousticness: stat_totals['acousticness'] / data.audio_features.length,
         instrumentalness: stat_totals['instrumentalness'] / data.audio_features.length,
-        liveness: stat_totals['liveness'] / data.audio_features.length
+        liveness: stat_totals['liveness'] / data.audio_features.length,
+        valence: stat_totals['valence'] / data.audio_features.length
       };
     
       res.status(200).send(stats_avg);

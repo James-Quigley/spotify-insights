@@ -15,7 +15,8 @@ const Index = () => {
     speechiness: 0,
     acousticness: 0,
     instrumentalness: 0,
-    liveness: 0
+    liveness: 0,
+    valence: 0
   });
 
   const getPlaylists = async () => {
