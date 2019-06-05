@@ -1,5 +1,13 @@
 {
-    "version": 2,
-    "builds": [{ "src": "server.js", "use": "@now/node-server" }]
-  }
-  
+    "version": 1,
+    "env": {
+        "AUTHORIZATION_URL": "@spotify-insights-authorization-url",
+        "TOKEN_URL": "@spotify-insights-token-url",
+        "CLIENT_ID": "@spotify-insights-client-id",
+        "CLIENT_SECRET": "@spotify-insights-client-secret",
+        "CALLBACK_URL": "@spotify-insights-callback-url",
+        "SESSION_SECRET": "@spotify-insights-session-secret"
+    },
+    "alias": "spotify-insights.now.sh",
+    "features": { "cloud": "v1" }
+}
