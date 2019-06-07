@@ -115,7 +115,8 @@ const Index = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline>
         <div style={{
-          textAlign: 'center'
+          textAlign: 'center',
+          margin: '10px'
         }}>
           <Head>
             <meta
