@@ -8,7 +8,7 @@ import Grid from '../components/Grid';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
-import { Typography, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
+import { Typography, FormControl, Select, MenuItem, InputLabel, AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 function useWindowSize() {
@@ -130,7 +130,6 @@ const Index = () => {
       <CssBaseline>
         <div style={{
           textAlign: 'center',
-          margin: '10px'
         }}>
           <Head>
             <meta
@@ -147,8 +146,16 @@ const Index = () => {
             `}</style>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
           </Head>
-          <Typography variant="h2">Spotify Insights</Typography>
-          {/* <form className={classes.root} autoComplete="off">
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Spotify Insights
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <div>
+            {/* <Typography variant="h2">Spotify Insights</Typography> */}
+            {/* <form className={classes.root} autoComplete="off">
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="playlist">Playlist</InputLabel>
               <Select value={playlist ? playlist.name : 'Loading...'} onChange={(e) => setSelectedPlaylist(e.target.value)} inputProps={{
@@ -164,31 +171,33 @@ const Index = () => {
             </FormControl>
           </form> */}
 
-          <Typography variant="h3" style={{ margin: '10px 0' }}>Playlist</Typography>
-          {
-            (!loadingPlaylist && playlist) ?
-              <RadarChart name={playlist.name} data={playlistData} size={175} margin={50}>
-                <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
-                  {
-                    !loadingPlaylists ?
-                  [<option value={''}>Select a Playlist</option>].concat(playlists.map(playlist => <option key={playlist.id} value={playlist.id}>{playlist.name}</option>)) :
-                      <option key="null" value={'null'}>Loading...</option>
-                  }
-                </select>
-              </RadarChart> :
-              process.browser ?
-                <RadarChart name="Loading..." data={[]} size={175} margin={50}></RadarChart> :
-                ''
-          }
-          <Typography variant="h3" style={{ margin: '10px 0' }}>Songs</Typography>
+            <Typography variant="h3" style={{ margin: '10px 0' }}>Playlist</Typography>
+            {
+              (!loadingPlaylist && playlist) ?
+                <RadarChart name={playlist.name} data={playlistData} size={175} margin={50}>
+                  <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
+                    {
+                      !loadingPlaylists ?
+                        [<option value={''}>Select a Playlist</option>].concat(playlists.map(playlist => <option key={playlist.id} value={playlist.id}>{playlist.name}</option>)) :
+                        <option key="null" value={'null'}>Loading...</option>
+                    }
+                  </select>
+                </RadarChart> :
+                process.browser ?
+                  <RadarChart name="Loading..." data={[]} size={175} margin={50}></RadarChart> :
+                  ''
+            }
+            <Typography variant="h3" style={{ margin: '10px 0' }}>Songs</Typography>
 
-          {!loadingSongs ?
-            <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
-            process.browser ?
-              <Grid songs={dummyData} columns={Math.floor((size.width | 350) / 350)}></Grid> :
-              ''
-          }
+            {!loadingSongs ?
+              <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
+              process.browser ?
+                <Grid songs={dummyData} columns={Math.floor((size.width | 350) / 350)}></Grid> :
+                ''
+            }
+          </div>
         </div>
+
       </CssBaseline>
     </MuiThemeProvider>
   )
