@@ -8,6 +8,5 @@ const theme = createMuiTheme({
     type: 'dark'
   },
 });
-console.log("Theme", theme)
 
 export default theme;
