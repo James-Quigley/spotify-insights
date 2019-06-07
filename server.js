@@ -98,7 +98,7 @@ app.prepare()
     });
   });
 
-  server.get('/api/playlist/:id/audio_features', (req, res) => {
+  server.get('/api/playlist/:id/audio_features/avg', (req, res) => {
     if (!req.user) {
       res.sendStatus(401);
       return;
@@ -150,6 +150,41 @@ app.prepare()
       };
     
       res.status(200).send(stats_avg);
+    })
+    .catch((err) => {
+      console.error("Uh oh", err);
+      res.sendStatus(500);
+    });
+  })
+
+  server.get('/api/playlist/:id/audio_features', (req, res) => {
+    if (!req.user) {
+      res.sendStatus(401);
+      return;
+    }
+    axios.get(`https://api.spotify.com/v1/playlists/${req.params.id}/tracks`, {
+      headers: {
+        'Authorization': `Bearer ${req.user}`
+      }
+    }).then(async ({data}) => {
+      let tracks = data.items.filter(song => Object.keys(song).includes('track')).slice(0, 100).map(song => song.track);
+      const response = await axios.get(`https://api.spotify.com/v1/audio-features?ids=${tracks.map(track => track.id).join(',')}`, {
+        headers: {
+          'Authorization': `Bearer ${req.user}`
+        }
+      });
+      for (let i = 0; i < tracks.length; i++){
+        tracks[i].audio_features = response.data.audio_features[i];
+      }
+      const keys = ['danceability', 'energy', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence'];
+      res.status(200).send(tracks.filter(track => {
+        for (let key of keys) {
+          if (track.audio_features[key] === undefined || track.audio_features[key] === null){
+            return false;
+          }
+        }
+        return true;
+      }));
     })
     .catch((err) => {
       console.error("Uh oh", err);

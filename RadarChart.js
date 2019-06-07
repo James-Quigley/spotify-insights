@@ -33,7 +33,7 @@ export function RadarChart(parent_selector, data, options) {
 					line.pop();
 					tspan.text(line.join(" "));
 					line = [word];
-					tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+					tspan = text.append("tspan").style("fill", "white").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
 			  }
 			}
 	  });
@@ -138,16 +138,16 @@ export function RadarChart(parent_selector, data, options) {
 		.style("filter" , "url(#glow)");
 
 	//Text indicating at what % each level is
-	axisGrid.selectAll(".axisLabel")
-	   .data(d3.range(1,(cfg.levels+1)).reverse())
-	   .enter().append("text")
-	   .attr("class", "axisLabel")
-	   .attr("x", 4)
-	   .attr("y", d => -d * radius / cfg.levels)
-	   .attr("dy", "0.4em")
-	   .style("font-size", "10px")
-	   .attr("fill", "#737373")
-	   .text(d => Format(maxValue * d / cfg.levels) + cfg.unit);
+	// axisGrid.selectAll(".axisLabel")
+	//    .data(d3.range(1,(cfg.levels+1)).reverse())
+	//    .enter().append("text")
+	//    .attr("class", "axisLabel")
+	//    .attr("x", 4)
+	//    .attr("y", d => -d * radius / cfg.levels)
+	//    .attr("dy", "0.4em")
+	//    .style("font-size", "10px")
+	//    .attr("fill", "#737373")
+	//    .text(d => Format(maxValue * d / cfg.levels) + cfg.unit);
 
 	/////////////////////////////////////////////////////////
 	//////////////////// Draw the axes //////////////////////
@@ -173,6 +173,7 @@ export function RadarChart(parent_selector, data, options) {
 	axis.append("text")
 		.attr("class", "legend")
 		.style("font-size", "11px")
+		.style("fill", "white")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", (d,i) => rScale(maxValue * cfg.labelFactor) * cos(angleSlice * i - HALF_PI))
@@ -284,6 +285,7 @@ export function RadarChart(parent_selector, data, options) {
 		.attr('y', 0)
 		.style("font-size", "12px")
 		.style('display', 'none')
+		.style("fill", "white")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em");
 
@@ -298,6 +300,7 @@ export function RadarChart(parent_selector, data, options) {
 				.attr("y", 10)
 				.attr("font-size", "12px")
 				.attr("fill", "#404040")
+				.style("fill", "white")
 				.text(cfg.legend.title);
 		}
 		let legend = legendZone.append("g")
@@ -320,6 +323,7 @@ export function RadarChart(parent_selector, data, options) {
 		  .data(names)
 		  .enter()
 		  .append("text")
+		  .style("fill", "white")
 		  .attr("x", cfg.w - 52)
 		  .attr("y", (d,i) => i * 20 + 9)
 		  .attr("font-size", "11px")
