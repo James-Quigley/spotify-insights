@@ -171,7 +171,7 @@ const Index = () => {
             </FormControl>
           </form> */}
 
-            <Typography variant="h3" style={{ margin: '10px 0' }}>Playlist</Typography>
+            <Typography variant="h3" style={{ margin: '20px 0 10px 0' }}>Playlist</Typography>
             {
               (!loadingPlaylist && playlist) ?
                 <RadarChart name={playlist.name} data={playlistData} size={175} margin={50}>
@@ -187,7 +187,7 @@ const Index = () => {
                   <RadarChart name="Loading..." data={[]} size={175} margin={50}></RadarChart> :
                   ''
             }
-            <Typography variant="h3" style={{ margin: '10px 0' }}>Songs</Typography>
+            <Typography variant="h3" style={{ margin: '20px 0 10px 0' }}>Songs</Typography>
 
             {!loadingSongs ?
               <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
