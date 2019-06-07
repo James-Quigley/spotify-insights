@@ -110,7 +110,21 @@ const Index = () => {
   }, [selectedPlaylist])
 
   const playlist = playlists.find(p => p.id === selectedPlaylist);
+  const dummyData = [];
 
+  for (let i = 0; i < Math.floor((size.width | 350) / 350); i++){
+    dummyData.push({
+      name: "",
+      artists: [
+        {
+          name: ""
+        }
+      ],
+      audio_features: []
+    })
+  }
+    
+  
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline>
@@ -159,13 +173,18 @@ const Index = () => {
           <Typography component="h2">Playlist</Typography>
           {
             (!loadingPlaylist && playlist) ?
-              <RadarChart name={playlist.name} data={playlistData} size={200} margin={50}></RadarChart> : ''
+              <RadarChart name={playlist.name} data={playlistData} size={200} margin={50}></RadarChart> :
+              process.browser ?
+                <RadarChart name="Loading..." data={[]} size={200} margin={50}></RadarChart> :
+                ''
           }
           <Typography component="h2">Songs</Typography>
 
           {!loadingSongs ?
             <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
-            ''
+            process.browser ?
+              <Grid songs={dummyData} columns={Math.floor((size.width | 350) / 350)}></Grid> :
+              ''
           }
         </div>
       </CssBaseline>
