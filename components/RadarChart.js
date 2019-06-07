@@ -41,6 +41,9 @@ export default (props) => {
 
   return (<Card color="primary">
     <CardContent>
+      {
+        props.children ? props.children : ''
+      }
       <Typography variant='h6'>{props.name}</Typography>
       <Typography variant="caption">{props.song ? props.song.artists[0].name : ''}</Typography>
       <div id={id}>

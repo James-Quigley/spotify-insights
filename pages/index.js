@@ -112,7 +112,7 @@ const Index = () => {
   const playlist = playlists.find(p => p.id === selectedPlaylist);
   const dummyData = [];
 
-  for (let i = 0; i < Math.floor((size.width | 350) / 350); i++){
+  for (let i = 0; i < Math.floor((size.width | 350) / 350); i++) {
     dummyData.push({
       name: "",
       artists: [
@@ -123,8 +123,8 @@ const Index = () => {
       audio_features: []
     })
   }
-    
-  
+
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline>
@@ -147,7 +147,7 @@ const Index = () => {
             `}</style>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
           </Head>
-          <Typography component="h1">Playlists</Typography>
+          <Typography variant="h2">Spotify Insights</Typography>
           {/* <form className={classes.root} autoComplete="off">
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="playlist">Playlist</InputLabel>
@@ -163,22 +163,24 @@ const Index = () => {
               </Select>
             </FormControl>
           </form> */}
-          <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
-            {
-              !loadingPlaylists ?
-                playlists.map(playlist => <option key={playlist.id} value={playlist.id}>{playlist.name}</option>) :
-                <option key="null" value={'null'}>Loading...</option>
-            }
-          </select>
-          <Typography component="h2">Playlist</Typography>
+
+          <Typography variant="h3" style={{ margin: '10px 0' }}>Playlist</Typography>
           {
             (!loadingPlaylist && playlist) ?
-              <RadarChart name={playlist.name} data={playlistData} size={200} margin={50}></RadarChart> :
+              <RadarChart name={playlist.name} data={playlistData} size={175} margin={50}>
+                <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
+                  {
+                    !loadingPlaylists ?
+                  [<option value={''}>Select a Playlist</option>].concat(playlists.map(playlist => <option key={playlist.id} value={playlist.id}>{playlist.name}</option>)) :
+                      <option key="null" value={'null'}>Loading...</option>
+                  }
+                </select>
+              </RadarChart> :
               process.browser ?
-                <RadarChart name="Loading..." data={[]} size={200} margin={50}></RadarChart> :
+                <RadarChart name="Loading..." data={[]} size={175} margin={50}></RadarChart> :
                 ''
           }
-          <Typography component="h2">Songs</Typography>
+          <Typography variant="h3" style={{ margin: '10px 0' }}>Songs</Typography>
 
           {!loadingSongs ?
             <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
