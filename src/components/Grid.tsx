@@ -29,7 +29,7 @@ export default ({ songs, columns }: { songs: Array<any>, columns: number }) => {
                 <Card>
                     <CardContent>
                         <a href={song.uri} style={{ textDecoration: 'none' }}><Typography color="primary" variant="h6">{song.name}</Typography></a>
-                        <a href={song.artists[0].uri} style={{ textDecoration: 'none' }}><Typography color="secondary" variant="subtitle1">{song.artists[0].name}</Typography></a>
+                        <a href={song.artists[0].uri} style={{ textDecoration: 'none' }}><Typography color="textSecondary" variant="subtitle1">{song.artists[0].name}</Typography></a>
                         <RadarChart key={song.name} name={song.name} data={song.audio_features} size={150} margin={50} />
                     </CardContent>
                 </Card>)
