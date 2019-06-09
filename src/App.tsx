@@ -10,6 +10,13 @@ import { Playlist, Song } from './types';
 
 import { getPlaylists, getPlaylistAverageAudioFeatures, getPlaylistTracksAudioFeatures } from './utils/spotify';
 import useWindowSize from './utils/useWindowSize';
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-135061989-2', {
+  gaOptions: {
+    siteSpeedSampleRate: 50
+  }
+});
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const App: React.FC = (props) => {
 
