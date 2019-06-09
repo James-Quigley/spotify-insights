@@ -13,7 +13,8 @@ export interface Song {
     id: string,
     name: string,
     artists: Array<Artist>,
-    audio_features: AudioFeatures
+    audio_features: AudioFeatures,
+    uri: string
 }
 
 export interface AudioFeatures {
@@ -28,5 +29,6 @@ export interface AudioFeatures {
 }
 
 export interface Artist {
-    name: string
+    name: string,
+    uri: string
 }

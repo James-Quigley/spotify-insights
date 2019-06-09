@@ -61,11 +61,12 @@ export const getPlaylistTracksAudioFeatures = async (id: string): Promise<Array<
             }
         }
         return true;
-    }).map(({ id, name, audio_features, artists}) => ({
+    }).map(({ id, name, audio_features, artists, uri}) => ({
         id,
         name,
         audio_features,
-        artists
+        artists,
+        uri
     }));
 
     return tracks;
