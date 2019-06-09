@@ -1,13 +1,17 @@
 {
-    "version": 1,
-    "env": {
-        "AUTHORIZATION_URL": "@spotify-insights-authorization-url",
-        "TOKEN_URL": "@spotify-insights-token-url",
-        "CLIENT_ID": "@spotify-insights-client-id",
-        "CLIENT_SECRET": "@spotify-insights-client-secret",
-        "CALLBACK_URL": "@spotify-insights-callback-url",
-        "SESSION_SECRET": "@spotify-insights-session-secret"
-    },
-    "alias": "spotify-insights.now.sh",
-    "features": { "cloud": "v1" }
+    "version": 2,
+    "name": "spotify-insights",
+    "builds": [
+        { "src": "package.json", "use": "@now/static-build", "config": { "distDir": "build" } }
+    ],
+    "routes": [
+      { "src": "/static/(.*)", "headers": { "cache-control": "s-maxage=31536000,immutable" }, "dest": "/static/$1" },
+      { "src": "/favicon.ico", "dest": "/favicon.ico" },
+      { "src": "/asset-manifest.json", "dest": "/asset-manifest.json" },
+      { "src": "/manifest.json", "dest": "/manifest.json" },
+      { "src": "/precache-manifest.(.*)", "dest": "/precache-manifest.$1" },
+      { "src": "/service-worker.js", "headers": { "cache-control": "s-maxage=0" }, "dest": "/service-worker.js" },
+      { "src": "/(.*)", "headers": {"cache-control": "s-maxage=0"}, "dest": "/index.html" }
+    ],
+    "alias": "spotify-insights.now.sh"
 }
