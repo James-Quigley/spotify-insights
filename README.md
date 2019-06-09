@@ -1,3 +1,12 @@
+# Spotify Insights
+
+A web app to display statistics about your Spotify playlists and their songs.
+
+
+
+# Contributing
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
