@@ -24,7 +24,7 @@ window.location.hash = '';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 const clientId = '5b649a51cbeb427e95f982898dc1054b';
-const redirectUri = process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : 'https://spotify-insights.now.sh';
+const redirectUri = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://spotify-insights.now.sh';
 const scopes = [
     'user-library-read',
     'playlist-read-private',

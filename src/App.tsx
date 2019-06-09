@@ -93,14 +93,14 @@ const App: React.FC = (props) => {
           </div>
           {
             loadingPlaylist ?
-              // @ts-ignore
               <RadarChart name="Loading" data={{
                 danceability: 0,
                 instrumentalness: 0,
                 acousticness: 0,
                 valence: 0,
                 energy: 0,
-                speechiness: 0
+                speechiness: 0,
+                liveness: 0
               }} margin={50} size={175} /> :
               <RadarChart name={playlist.name} data={playlistData} margin={50} size={175} />
           }
