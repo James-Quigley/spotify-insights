@@ -5,6 +5,7 @@ import TopBar from './components/TopBar';
 import PlaylistSelect from './components/PlaylistSelect';
 import RadarChart from './components/RadarChart';
 import Grid from './components/Grid';
+import Sorting from './components/Sorting';
 
 import { Playlist, Song } from './types';
 
@@ -36,6 +37,9 @@ const App: React.FC = (props) => {
 
   const [loadingPlaylist, setLoadingPlaylist] = useState(true);
   const [loadingSongs, setLoadingSongs] = useState(true);
+
+  const [sortKey, setSortKey] = useState('acousticness');
+  const [sortAsc, setSortAsc] = useState(false);
 
   const size = useWindowSize();
 
@@ -69,6 +73,13 @@ const App: React.FC = (props) => {
 
   const playlist = playlists.find(p => p.id === selectedPlaylist) || { name: 'Loading' };
   const dummyData = [];
+
+  const sortedSongs = songs.sort((a, b) => {
+    if (a.audio_features[sortKey] === b.audio_features[sortKey]){
+      return 0;
+    }
+    return sortAsc ? a.audio_features[sortKey] - b.audio_features[sortKey] : b.audio_features[sortKey] - a.audio_features[sortKey]
+  });
 
   for (let i = 0; i < Math.floor((size.width | 350) / 350); i++) {
     dummyData.push({
@@ -115,9 +126,13 @@ const App: React.FC = (props) => {
         </Paper>
 
         <Typography variant="h3" style={{ margin: '20px 0 20px 0' }}>Songs</Typography>
-
+        <Paper style={{marginBottom: '20px', padding: '10px'}}>
+          <div style={{margin: '0 auto', width: '400px'}}>
+            <Sorting sortKey={sortKey} setSortKey={setSortKey} sortAsc={sortAsc} setSortAsc={setSortAsc}/>
+          </div>
+        </Paper>
         {!loadingSongs ?
-          <Grid songs={songs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
+          <Grid songs={sortedSongs} columns={Math.floor((size.width | 350) / 350)}></Grid> :
           <Grid songs={dummyData} columns={Math.floor((size.width | 350) / 350)}></Grid>
         }
 
