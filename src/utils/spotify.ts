@@ -49,14 +49,14 @@ export const getPlaylistTracksAudioFeatures = async (id: string): Promise<Array<
     let tracks = songs.filter((song: any) => Object.keys(song).includes('track')).slice(0, 100).map((song: any) => song.track);
     const response = await window.axios.get(`audio-features?ids=${tracks.map((track: any) => track.id).join(',')}`);
     for (let i = 0; i < tracks.length; i++){
-        tracks[i].audio_features = response.data.audio_features[i];
+        tracks[i].audio_features = response.data.audio_features[i] || null;
     }
     const keys = ['danceability', 'energy', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence'];
     
-    const typedTracks: Array<Song> = tracks;
-    typedTracks.filter((track: Song) => {
+    let typedTracks: Array<Song> = tracks;
+    return typedTracks.filter((track: Song) => {
         for (let key of keys) {
-            if (track.audio_features[key] === undefined || track.audio_features[key] === null){
+            if (track.audio_features == null || track.artists == null || track.audio_features[key] === undefined || track.audio_features[key] === null){
                 return false;
             }
         }
@@ -68,6 +68,4 @@ export const getPlaylistTracksAudioFeatures = async (id: string): Promise<Array<
         artists,
         uri
     }));
-
-    return tracks;
 }
